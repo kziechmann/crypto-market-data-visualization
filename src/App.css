@@ -56,3 +56,26 @@ table th{
   background-color: purple;
   border-radius: 5px;
 }
+
+.pagination{
+  margin: 1em;
+  justify-self: center;
+}
+
+.pagination button{
+  background-color: fuchsia;
+  border-radius: 0.25rem;
+  border: 0;
+}
+
+.pagination input{
+  background-color: grey;
+  border-radius: 0.25rem;
+  border: 0;
+}
+
+.pagination select{
+  background-color: grey;
+  border-radius: 0.25rem;
+  border: 0;
+}
