@@ -23,7 +23,13 @@ h1{
   padding: 1em;
 }
 
-h5{
+p{
   color: purple;
   font-size: 500;
+  margin: 1em;
+}
+
+.currency{
+  display: flex;
+  justify-content: space-evenly;
 }
