@@ -8,6 +8,10 @@
   justify-content: center;
 }
 
+.coin-icon{
+  font-size: 150;
+}
+
 .center{
   justify-self: center;
   text-align: center;
