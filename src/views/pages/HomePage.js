@@ -14,7 +14,7 @@ class Home extends React.Component {
 
         return (
             <div className="Home">
-                <h1 className="center"> Crypto Price Analysis</h1>
+                <h1 className="center"> Cryptocurrency Market Data </h1>
                 <CurrenciesTable currencies={currencies}/>
             </div>
         );
