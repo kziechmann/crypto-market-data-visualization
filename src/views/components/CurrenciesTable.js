@@ -16,8 +16,8 @@ const svgs = reqSvgs
 
 const columns = [
     {
-      Header: '#',
-      accesor: 'rank'
+      Header: 'rank',
+      accessor: 'rank'
     },
     {
       Header: 'Symbol',
@@ -25,7 +25,8 @@ const columns = [
             <div>
                 <ReactSVG src={svgs[symbol.toLowerCase()] || svgs['generic']}/>
                 {symbol}
-           </div>
+           </div>,
+      sortType: (a,b) => a.original.symbol > b.original.symbol ? 1 : -1
     },
     {
       Header: 'Currency',
@@ -33,19 +34,28 @@ const columns = [
     },
     {
       Header: 'Price (USD)',
-      accessor: ({priceUsd}) => numeral(priceUsd).format( priceUsd > 2 ? '$0,0.00' : '$0,0.0000')
+      accessor: ({priceUsd}) => numeral(priceUsd).format( priceUsd > 2 ? '$0,0.00' : '$0,0.0000'),
+      sortType: (a,b) => numeral(a).value() -  numeral(b).value()
     },
     {
       Header: 'Supply',
-      accessor: ({supply}) => numeral(supply).format('0.0a')
+      accessor: ({supply}) => numeral(supply).format('0.0a'),
+      sortType: (a,b) => numeral(a).value() -  numeral(b).value()
     },
     {
-      Header: 'Market Cap',
-      accessor: ({marketCapUsd}) => numeral(marketCapUsd).format('0.0a')
+      Header: 'Market Cap (USD)',
+      accessor: ({marketCapUsd}) => numeral(marketCapUsd).format('$0.0a'),
+      sortType: (a,b) => numeral(a).value() -  numeral(b).value()
     },
     {
       Header: '% Change (24H)',
-      accesor: ({changePercent24Hr}) => numeral(changePercent24Hr).format('0.000%')
+      accessor: ({changePercent24Hr}) => (
+        <p style={{color: parseFloat(changePercent24Hr) > 0 ? '#02C973' : '#FF0009'}}>
+            {parseFloat(changePercent24Hr) > 0 ? '▲' : '▼'}
+            {' '}
+            {numeral(changePercent24Hr/100).format('0.00%')}
+        </p>),
+      sortType: (a,b) => Number(parseFloat(a.original.changePercent24Hr))  -  Number(parseFloat(b.original.changePercent24Hr))
     }
   ]
 
@@ -67,7 +77,7 @@ function Table({currencies}) {
       canNextPage,
     } = useTable({
       columns,
-      data: currencies.sort((a,b) => a.rank - b.rank),
+      data: currencies,
     }, useSortBy, usePagination)
 
     return(
@@ -80,7 +90,7 @@ function Table({currencies}) {
                   <th {...column.getHeaderProps(column.getSortByToggleProps())}>
                   {column.render('Header')}
                     <span>
-                      {column.isSorted ? (column.isSortedDesc ? '  ⇓' : '  ⇑ ') : ''}
+                      {column.isSorted ? (column.isSortedDesc ? ' ▼ ' : ' ▲ ') : ' ⇳ '}
                     </span>
                   </th>
                 ))}

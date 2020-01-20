@@ -42,7 +42,7 @@ p{
 table {
   padding: 1em;
   text-align:center;
-  width: 90%;
+  width: 80vw;
   background-color: rgba(143, 31, 143, 0.322);
   border-radius: 25px;
   border: 8px solid white;
@@ -53,10 +53,15 @@ table td{
   background: rgba(48, 0, 48, 0.959);
 }
 
+table tr:hover{
+  background: white;
+}
+
 table th{
-  margin: 2em;
-  border: 3px solid purple;
+  /* margin: 2em; */
+  padding: .5em;
   background-color: purple;
+  align-items: center;
   border-radius: 5px;
 }
 
